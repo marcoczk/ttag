@@ -12,8 +12,9 @@ class GameEntity:
         self.label = val if label == "" else label
         self.val = val
         self.props: list[EntityProperties] = props
+        self.spells: list[str] = []
 
-    def pass_key(self, key: str, gamestate: object):
+    def pass_key(self, key: str, game_state: object):
         pass
 
 

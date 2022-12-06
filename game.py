@@ -6,6 +6,7 @@ from windows.player_pos_menu import PlayerPosMenu
 from windows.entity_explorer_menu import EntityExplorerMenu
 from windows.game_window import GameWindow
 from windows.exit_menu import ExitMenu
+from windows.spell_menu import SpellMenu
 from levels.read_level import read_level
 
 
@@ -36,40 +37,19 @@ class Game:
         self.windows = []
         self.game_state.game_window_baseX = 0
         self.game_state.game_window_baseY = 0
-        self.game_state.game_window_width = self.CONSOLE_WIDTH
+        self.game_state.game_window_width = self.CONSOLE_WIDTH-15
         self.game_state.game_window_height = self.CONSOLE_HEIGHT
         self.windows.append(GameWindow(
             self.game_state.game_window_width,
             self.game_state.game_window_height,
             self.game_state.game_window_baseX,
             self.game_state.game_window_baseY))
-        self.windows.append(PlayerPosMenu(10, 10, 0, 0))
-        self.windows.append(EntityExplorerMenu(20, 6, -20, 0))
+        # self.windows.append(PlayerPosMenu(10, 10, 0, 0))
+        self.windows.append(SpellMenu(15, self.CONSOLE_HEIGHT, -15, 0))
+        # self.windows.append(EntityExplorerMenu(20, 6, -20, 0))
         self.windows.append(ExitMenu(10, 5, -10, -5))
 
-        # for y in range(0, self.game_state.MAP_HEIGHT):
-        #     for x in range(0, self.game_state.MAP_WIDTH):
-        #         if y == 0 or x == 0 or y == self.game_state.MAP_HEIGHT - 1 or x == self.game_state.MAP_WIDTH - 1:
-        #             self.game_state.entities.add_entity(GameEntity(x, y, "W"))
-        # self.game_state.entities.add_entity(GameEntity(5, 5, "W"))
-        # self.game_state.entities.add_entity(GameEntity(5, 6, "W"))
-        # self.game_state.entities.add_entity(GameEntity(6, 5, "W"))
-        # self.game_state.entities.add_entity(GameEntity(6, 6, "W"))
-        #
-        # self.game_state.entities.add_entity(GameEntity(50, 5, "W"))
-        # self.game_state.entities.add_entity(GameEntity(50, 6, "W"))
-        # self.game_state.entities.add_entity(GameEntity(51, 5, "W"))
-        # self.game_state.entities.add_entity(GameEntity(51, 6, "W"))
-        #
-        # self.game_state.entities.add_entity(GameEntity(5, 50, "W"))
-        # self.game_state.entities.add_entity(GameEntity(5, 51, "W"))
-        # self.game_state.entities.add_entity(GameEntity(6, 50, "W"))
-        # self.game_state.entities.add_entity(GameEntity(6, 51, "W"))
-        #
-        # self.game_state.entities.add_entity(GameEntity(50, 50, "W"))
-        # self.game_state.entities.add_entity(GameEntity(50, 51, "W"))
-        # self.game_state.entities.add_entity(GameEntity(51, 50, "W"))
-        # self.game_state.entities.add_entity(GameEntity(51, 51, "W"))
+        self.game_state.player.spells = ["fireball"]
 
         for menu in self.windows:
             menu.update(self.game_state)

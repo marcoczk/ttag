@@ -1,4 +1,5 @@
 from game_state import GameState
+from windows.clickable import Clickable
 
 
 class Window:
@@ -9,6 +10,7 @@ class Window:
         self.posY = posY
         self.content = {}
         self.visible = visible
+        self.clickables: list[Clickable] = []
 
     def update(self, game_state: GameState):
         pass
@@ -33,7 +35,11 @@ class Window:
         return posX - baseX, posY - baseY
 
     def pass_click(self, posX: int, posY: int, console_width: int, console_height: int, game_state: GameState):
-        pass
+        trueX, trueY = self.true_click_pos_at_menu(posX, posY, console_width, console_height)
+        for clickable in self.clickables:
+            if clickable.is_clicked(trueX, trueY):
+                clickable.click(game_state)
+        self.update(game_state)
 
     def create_border(self, wall: str):
         for y in range(0, self.height):
